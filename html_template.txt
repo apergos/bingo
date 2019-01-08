@@ -1,0 +1,15 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN\ http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Bingo Cards</title>
+    <style type="text/css">
+        body { font-size: 12px; font-weight: bold; background-image:url(bg-image.jpg)}
+        table { margin: 40px auto; border-spacing: 2px; }
+        t.newpage { page-break-after:always; }
+        tr { height: 100px; }
+        td { text-align: center; border: thin black solid; padding: 10px; width: 100px; }
+    </style>
+  </head>
+<body>
+<center><h1>Presidential Border Bingo</h1></center>
