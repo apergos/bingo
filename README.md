@@ -1,10 +1,20 @@
 Bingo Card Generator
 ====================
-Make sure you put the background image of your choice into bg-image.jpg and edit template.html to use the title (in h1 tags) you prefer.
+Use of bingo.html:
+Put the background image of your choice into bg-image.jpg, edit the title in the html file to whatever
+you like, add more or different trumpisms in the html file by extending the list 'trumpisms', and load
+up into your browser. Clicking on a square marks it for bingo. If you hit the wrong square you can always
+click it again to clear it. Nothing spectacular happens when you get bingo unless you jump up and shout
+BINGO! yourself and have a drink :-)
 
-This script (now) uses python3.
+Use of python script:
 
-Once you've run the script and viewed the html in your browser, resize the browser and printscreen the area you want for the card, for a cheap quick image. I've repurposed it with the intent to produce one card, with title, for the web. If you wanted something else, the original fork is still there...
+Make sure you put the background image of your choice into bg-image.jpg and edit template.html to use
+the title (in h1 tags) you prefer. Then run the script with python3.
+
+Once you've run the script and viewed the html in your browser, resize the browser and printscreen the
+area you want for the card, for a cheap quick image. I've repurposed it with the intent to produce one
+card, with title, for the web. If you wanted something else, the original fork is still there...
 
 Original text from source follows:
 
