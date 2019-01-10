@@ -2,14 +2,123 @@
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Bingo Cards</title>
+    <title>Bingo Card</title>
     <style type="text/css">
         body { font-size: 12px; font-weight: bold; background-image:url(bg-image.jpg)}
-        table { margin: 40px auto; border-spacing: 2px; }
+        table { margin: 20px auto; border-spacing: 2px; }
         t.newpage { page-break-after:always; }
         tr { height: 100px; }
         td { text-align: center; border: thin black solid; padding: 10px; width: 100px; }
+	td.unmarked { background-color: #ffffff; }
+	td.marked { background-color: #ffcc99; }
+	div.reloader { width: 650px; text-align: left; cursor: pointer; }
+	button.reloader { border: 0px; background:none!important; color:inherit; cursor: pointer; }
     </style>
+    <script>
+      var trumpisms = [
+	  {{phrases}}
+      ];
+
+      function shuffle(array) {
+	  // stolen from stackoverflow, see
+	  // https://stackoverflow.com/questions/18806210/generating-non-repeating-random-numbers-in-js
+	  var i = array.length;
+	  var j = 0;
+	  var temp;
+
+	  while (i--) {
+              j = Math.floor(Math.random() * (i+1));
+
+              // swap randomly chosen element with current element
+              temp = array[i];
+              array[i] = array[j];
+              array[j] = temp;
+	  }
+	  return array;
+      }
+
+      var unmarkedCellColor = "#ffffff";
+      var markedCellColor = "{{color}}";
+
+      function setupCard() {
+	  var i, j;
+
+	  // generate an ordering of the items to go on the card
+	  toShuffle = []
+	  for (i=0; i<trumpisms.length; i++) {
+	      toShuffle.push(i);
+	  }
+	  var randomOrder = shuffle(toShuffle);
+
+	  // fill in the text in the table cells
+	  var htmlCells = document.getElementsByTagName("td");
+	  for (i = 0; i < htmlCells.length; i++) {
+	      if (i < 12) {
+		  htmlCells[i].innerHTML = trumpisms[randomOrder[i]];
+		  htmlCells[i].className = 'unmarked';
+	      } else if (i == 12) {
+		  htmlCells[i].innerHTML = "FREE SPACE";
+		  htmlCells[i].className = 'marked';
+	      } else if (i > 12) {
+		  htmlCells[i].innerHTML = trumpisms[randomOrder[i-1]];
+		  htmlCells[i].className = 'unmarked';
+	      }
+	  }
+      }
+
+      function changeCellColor(i) {
+	  // never change the center square, it's the free space
+	  if (i == 12) {
+	      return;
+	  }
+	  var htmlCells = document.getElementsByTagName("td");
+	  if (htmlCells[i].className == 'unmarked') {
+	      htmlCells[i].className = 'marked';
+	  } else {
+	      htmlCells[i].className = 'unmarked';
+	  }
+      }
+    </script>
   </head>
-<body>
-<center><h1>Presidential Border Bingo</h1></center>
+  <body onload="setupCard();">
+    <center><h1>{{heading}}</h1></center>
+    <center><div class="reloader"><button class="reloader" onclick="setupCard();">new card</button></div></center>
+    <table>
+	<tr>
+		<td onclick="changeCellColor(0);"></td>
+		<td onclick="changeCellColor(1);"></td>
+		<td onclick="changeCellColor(2);"></td>
+		<td onclick="changeCellColor(3);"></td>
+		<td onclick="changeCellColor(4);"></td>
+	</tr>
+	<tr>
+		<td onclick="changeCellColor(5);"></td>
+		<td onclick="changeCellColor(6);"></td>
+		<td onclick="changeCellColor(7);"></td>
+		<td onclick="changeCellColor(8);"></td>
+		<td onclick="changeCellColor(9);"></td>
+	</tr>
+	<tr>
+		<td onclick="changeCellColor(10);"></td>
+		<td onclick="changeCellColor(11);"></td>
+		<td></td>
+		<td onclick="changeCellColor(13);"></td>
+		<td onclick="changeCellColor(14);"></td>
+	</tr>
+	<tr>
+		<td onclick="changeCellColor(15);"></td>
+		<td onclick="changeCellColor(16);"></td>
+		<td onclick="changeCellColor(17);"></td>
+		<td onclick="changeCellColor(18);"></td>
+		<td onclick="changeCellColor(19);"></td>
+	</tr>
+	<tr>
+		<td onclick="changeCellColor(20);"></td>
+		<td onclick="changeCellColor(21);"></td>
+		<td onclick="changeCellColor(22);"></td>
+		<td onclick="changeCellColor(23);"></td>
+		<td onclick="changeCellColor(24);"></td>
+	</tr>
+    </table>
+  </body>
+</html>
