@@ -10,7 +10,7 @@
         tr { height: 100px; }
         td { text-align: center; border: thin black solid; padding: 10px; width: 100px; }
 	td.unmarked { background-color: #ffffff; }
-	td.marked { background-color: #ffcc99; }
+	td.marked { background-color: {{color}}; }
 	div.reloader { width: 650px; text-align: left; cursor: pointer; }
 	button.reloader { border: 0px; background:none!important; color:inherit; cursor: pointer; }
     </style>
@@ -37,8 +37,6 @@
 	  return array;
       }
 
-      var unmarkedCellColor = "#ffffff";
-      var markedCellColor = "{{color}}";
 
       function setupCard() {
 	  var i, j;
@@ -57,7 +55,7 @@
 		  htmlCells[i].innerHTML = trumpisms[randomOrder[i]];
 		  htmlCells[i].className = 'unmarked';
 	      } else if (i == 12) {
-		  htmlCells[i].innerHTML = "FREE SPACE";
+		  htmlCells[i].innerHTML = "{{free}}";
 		  htmlCells[i].className = 'marked';
 	      } else if (i > 12) {
 		  htmlCells[i].innerHTML = trumpisms[randomOrder[i-1]];

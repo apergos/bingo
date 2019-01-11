@@ -11,7 +11,7 @@ def usage(message=None):
     if message:
         sys.stderr.write(message + "\n")
     usage_message = """Usage: python3 bingo-generator.py --terms <path> [--output <path>]
-       [--header <string>] [--color <#nnnnnn>]
+       [--header <string>] [--color <#nnnnnn>] [--free <string>]
 or: python3 bingo-generator.py --help
 
 Reads a list of phrases from a file, fills in an html template,
@@ -26,13 +26,16 @@ Arguments:
                   Default: written to stdout
  --heading (-h):  what to call the bingo card (goes in the <h1> header)
                   Default: Bingo Card
+ --free    (-f):  what to put in the free space
+                  Default: FREE SPACE
  --color   (-c):  color to turn a square when it's been clicked
                   Default: #ffcc99
  --help    (-H):  show this help message
 
-Example:
+Examples:
 
 python3 bingo-generator.py -t trump_terms.txt -o trump_bingo.html -h "Presidential Border Bingo"
+python3 bingo-generator.py -t nice_terms.txt -o nice.html -h "A Nice Day" -f "Punch a Nazi"
 """
     sys.stderr.write(usage_message)
     sys.exit(1)
@@ -42,7 +45,7 @@ def get_default_opts():
     '''
     initialize args with default values and return them
     '''
-    args = {'output': None, 'heading': 'Bingo Card', 'color': '#ffcc99'}
+    args = {'output': None, 'heading': 'Bingo Card', 'color': '#ffcc99', 'free': 'Free Space'}
     return args
 
 
@@ -53,7 +56,8 @@ def process_opts():
     '''
     try:
         (options, remainder) = getopt.gnu_getopt(
-            sys.argv[1:], "t:o:h:c:H", ["terms=", "output=", "heading=", 'color=', "help"])
+            sys.argv[1:], "t:o:h:c:f:H", ["terms=", "output=", "heading=",
+                                          'color=', 'free=', "help"])
 
     except getopt.GetoptError as err:
         usage("Unknown option specified: " + str(err))
@@ -69,6 +73,8 @@ def process_opts():
             args['heading'] = val
         elif opt in ["-c", "--color"]:
             args['color'] = val
+        elif opt in ["-f", "--free"]:
+            args['free'] = val
         elif opt in ["-H", "--help"]:
             usage('Help for this script\n')
         else:
@@ -105,7 +111,7 @@ def do_main():
     args['phrases'] = terms
 
     html_template = open("html_template.txt", "r").read()
-    for argname in ['phrases', 'color', 'heading']:
+    for argname in ['phrases', 'color', 'heading', 'free']:
         html_template = html_template.replace('{{' + argname + '}}', args[argname], 1)
 
     if args['output']:
