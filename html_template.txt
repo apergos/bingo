@@ -12,7 +12,7 @@
 	td.unmarked { background-color: #ffffff; }
 	td.marked { background-color: {{color}}; }
 	div.reloader { width: 650px; text-align: left; cursor: pointer; }
-	button.reloader { border: 0px; background:none!important; color:inherit; cursor: pointer; }
+	button.reloader, button.cheat { border: 0px; background:none!important; color:inherit; cursor: pointer; }
     </style>
     <script>
       var trumpisms = [
@@ -76,11 +76,106 @@
 	      htmlCells[i].className = 'unmarked';
 	  }
       }
+
+      function getIndex(rowColDiag, i) {
+	  // given row, column or diag, and a count of how far
+	  // into the row/col/diag we are, get the cell index from 0
+	  // to 24 starting at upper left...
+	  if (rowColDiag[0] == 'r') {
+	      return((rowColDiag[1]-1)*5 + i);
+	  } else if (rowColDiag[0] == 'c') {
+	      return(i*5 + (rowColDiag[1]-1));
+	  } else {
+	      // diagonals
+	      if (rowColDiag[1] == 1) {
+		  return(6*i);
+	      } else {
+		  return(4*i);
+	      }
+	  }
+      }
+
+      function filter(cells, rowColDiag) {
+	  var filtered = []
+	  for (i=0; i < cells.length; i++) {
+	      if (rowColDiag[0] == 'r') {
+		  if (cells[i]<(rowColDiag[1]-1)*5 || cells[i]>=rowColDiag[1]*5) {
+		      filtered.push(cells[i]);
+		  }
+	      } else if (rowColDiag[0] == 'c') {
+		  if ((cells[i]-(rowColDiag[1]-1))%5) {
+		      filtered.push(cells[i]);
+		  }
+	      } else if (rowColDiag[1] == '1') {
+		  // diag 1
+		  if (cells[i]%6) {
+		      filtered.push(cells[i]);
+		  }
+	      } else {
+		  // diag 2
+		  if (cells[i]%4 || cells[i] == 0 || cells[i] == 24) {
+		      filtered.push(cells[i]);
+		  }
+	      }
+	  }
+	  return(filtered);
+      }
+
+      function cheat() {
+	  var htmlCells = document.getElementsByTagName("td");
+	  var markedCells = [];
+	  var squareCount = 0;
+
+	  for (i=0; i<htmlCells.length; i++) {
+	      if (i == 12) {
+		  // don't count the free space!
+		  continue;
+	      }
+	      if (htmlCells[i].className == 'marked') {
+		  markedCells.push(i);
+	      }
+	  }
+	  if (markedCells.length < 10) {
+	      alert("No cheating unless you've checked 10 squares!");
+	      return;
+	  }
+	  // choose a random row, column or diagonal along which to
+	  // arrange some of the marked squares
+	  choices = ['r1','r2','r3','r4', 'r5','c1','c2','c3','c4','c5','d1','d2'];
+	  chosen = choices[Math.floor(Math.random() * (choices.length + 1))];
+
+	  var shuffledMarkedOrder = shuffle(markedCells);
+	  // drop marked cells in the row/col/diag we are going to replace
+	  // since we can't 'swap them in' for unmarked cells in the same line
+	  filteredMarkedOrder = filter(shuffledMarkedOrder, chosen)
+
+	  var temp = "";
+	  var chosenIndex = 0;
+	  for (i=0; i<5; i++) {
+	      // swap the text of the element currently in the row/column we are about
+	      // to make the 'bingo' row/column, with the text of the element already marked
+	      chosenIndex = getIndex(chosen, i);
+	      if (htmlCells[chosenIndex].className == 'marked') {
+		  // don't swap something into a cell if it's already ok
+		  // conveniently this also skips the free space
+		  continue;
+	      }
+
+	      temp = htmlCells[chosenIndex].innerHTML;
+	      htmlCells[chosenIndex].innerHTML = htmlCells[filteredMarkedOrder[i]].innerHTML;
+	      htmlCells[filteredMarkedOrder[i]].innerHTML = temp;
+	      // swap the classes too
+	      temp = htmlCells[chosenIndex].className;
+	      htmlCells[chosenIndex].className = htmlCells[filteredMarkedOrder[i]].className;
+	      htmlCells[filteredMarkedOrder[i]].className = temp;
+	  }
+      }
+
     </script>
   </head>
   <body onload="setupCard();">
     <center><h1>{{heading}}</h1></center>
-    <center><div class="reloader"><button class="reloader" onclick="setupCard();">new card</button></div></center>
+    <center><div class="reloader"><button class="reloader" onclick="setupCard();">new card</button>|<button class="cheat" onclick="cheat();">cheat</button></div></center>
     <table>
 	<tr>
 		<td onclick="changeCellColor(0);"></td>
