@@ -28,14 +28,18 @@ Arguments:
                   Default: Bingo Card
  --free    (-f):  what to put in the free space
                   Default: FREE SPACE
+ --bgimage (-b):  what image to use for the background image
+                  Default: bg-image.jpg (if missing, white)
  --color   (-c):  color to turn a square when it's been clicked
                   Default: #ffcc99
  --help    (-H):  show this help message
 
 Examples:
 
-python3 bingo-generator.py -t trump_terms.txt -o trump_bingo.html -h "Presidential Border Bingo"
-python3 bingo-generator.py -t nice_terms.txt -o nice.html -h "A Nice Day" -f "Punch a Nazi"
+python3 bingo-generator.py \\
+  -t trump_terms.txt -o trump_bingo.html -h "Presidential Border Bingo" -b trump_bg.jpg
+python3 bingo-generator.py \\
+  -t nice_terms.txt -o nice.html -h "A Nice Day" -f "Punch a Nazi" -b nice_bg.jpg
 """
     sys.stderr.write(usage_message)
     sys.exit(1)
@@ -45,7 +49,8 @@ def get_default_opts():
     '''
     initialize args with default values and return them
     '''
-    args = {'output': None, 'heading': 'Bingo Card', 'color': '#ffcc99', 'free': 'Free Space'}
+    args = {'output': None, 'heading': 'Bingo Card', 'color': '#ffcc99',
+            'free': 'Free Space', 'bgimage': 'bg-image.jpg'}
     return args
 
 
@@ -56,8 +61,8 @@ def process_opts():
     '''
     try:
         (options, remainder) = getopt.gnu_getopt(
-            sys.argv[1:], "t:o:h:c:f:H", ["terms=", "output=", "heading=",
-                                          'color=', 'free=', "help"])
+            sys.argv[1:], "t:o:h:c:f:b:H", ["terms=", "output=", "heading=",
+                                            "color=", "free=", 'bgimage=',"help"])
 
     except getopt.GetoptError as err:
         usage("Unknown option specified: " + str(err))
@@ -75,6 +80,8 @@ def process_opts():
             args['color'] = val
         elif opt in ["-f", "--free"]:
             args['free'] = val
+        elif opt in ["-b", "--bgimage"]:
+            args['bgimage'] = val
         elif opt in ["-H", "--help"]:
             usage('Help for this script\n')
         else:
@@ -96,6 +103,21 @@ def check_opts(args):
             usage("Mandatory argument {name} not specified".format(name=name))
 
 
+def hex_to_rgb(hexcolor, alpha):
+    '''
+    pass in desired transparency and the hex string for the color
+    get back the rgba() string suitable for css
+    '''
+
+    # if we got a shorthand color, 'fill in' the missing hex digits
+    if len(hexcolor[1:]) == 3:
+        hexcolor = '#' + hexcolor[1]*2 + hexcolor[2]*2 + hexcolor[3]*2
+    red = int(hexcolor[1:3], 16)
+    green = int(hexcolor[3:5], 16)
+    blue = int(hexcolor[5:7], 16)
+    return 'rgba({r},{g},{b},{a})'.format(r=red, g=green, b=blue, a=alpha)
+
+
 def do_main():
     '''entry point'''
 
@@ -109,10 +131,12 @@ def do_main():
     terms = ['"' + term + '"' for term in terms]
     terms = ",".join(terms)
     args['phrases'] = terms
+    # make the cells a bit transparent
+    args['color'] = hex_to_rgb(args['color'], '0.4')
 
     html_template = open("html_template.txt", "r").read()
-    for argname in ['phrases', 'color', 'heading', 'free']:
-        html_template = html_template.replace('{{' + argname + '}}', args[argname], 1)
+    for argname in ['phrases', 'color', 'heading', 'free', 'bgimage']:
+        html_template = html_template.replace('{{' + argname + '}}', args[argname])
 
     if args['output']:
         out_file = open(args['output'], 'w')

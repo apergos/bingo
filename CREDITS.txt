@@ -1,0 +1,8 @@
+The image trump_bg.jpg is derived from
+  Url: https://commons.wikimedia.org/wiki/File:Donald_Trump_-_2018_(1541955849).jpg
+  Photographer: MYKOLA LAZARENKO
+  License: Creative Commons Attribution 4.0 International
+
+The image nice_bg.jpg is derived from a work of one of the committers to this repo.
+
+

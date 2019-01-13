@@ -2,17 +2,27 @@
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Bingo Card</title>
+    <title>{{heading}}</title>
     <style type="text/css">
-        body { font-size: 12px; font-weight: bold; background-image:url(bg-image.jpg)}
+        body {
+	     font-size: 12px;
+	     font-weight: bold;
+	     background-image:url({{bgimage}});
+	     background-color: #ffffff;
+	}
         table { margin: 20px auto; border-spacing: 2px; }
         t.newpage { page-break-after:always; }
         tr { height: 100px; }
         td { text-align: center; border: thin black solid; padding: 10px; width: 100px; }
-	td.unmarked { background-color: #ffffff; }
+	td.unmarked { background-color: rgba(255, 255, 255, 0.4); }
 	td.marked { background-color: {{color}}; }
 	div.reloader { width: 650px; text-align: left; cursor: pointer; }
-	button.reloader, button.cheat { border: 0px; background:none!important; color:inherit; cursor: pointer; }
+	button.reloader, button.cheat {
+	      border: 0px;
+	      background:none!important;
+	      color:inherit;
+	      cursor: pointer;
+	}
     </style>
     <script>
       var trumpisms = [
