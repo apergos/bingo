@@ -40,6 +40,8 @@ python3 bingo-generator.py \\
   -t trump_terms.txt -o trump_bingo.html -h "Presidential Border Bingo" -b trump_bg.jpg
 python3 bingo-generator.py \\
   -t nice_terms.txt -o nice.html -h "A Nice Day" -f "Punch a Nazi" -b nice_bg.jpg
+python3 bingo-generator.py \\
+  -t impeach_terms.txt -o impeach_bingo.html -h "Impeachment Bingo" -b trump_bg.jpg -f 'WITCH HUNT!'
 """
     sys.stderr.write(usage_message)
     sys.exit(1)
