@@ -5,4 +5,12 @@ The image trump_bg.jpg is derived from
 
 The image nice_bg.jpg is derived from a work of one of the committers to this repo.
 
+The image wtf_bg.jpg is derived from
+  Url: https://commons.wikimedia.org/wiki/File:January_2017_DTW_emergency_protest_against_Muslim_ban_-_36.jpg
+  Photographer: Gregory Varnum
+  License: Creative Commons Attribution-ShareAlike 4.0 International
 
+The image corpbuzz_bg.jpg is derived from
+  Url: https://commons.wikimedia.org/wiki/File:On_the_Reception_and_Detection_of_Pseudo-profound_Bullshit.pdf
+  Authors: Gordon Pennycook, James Allan Cheyne, Nathaniel Barr, Derek J. Koehler and Jonathan A. Fugelsang
+  License: Creative Commons Attribution 4.0 International
