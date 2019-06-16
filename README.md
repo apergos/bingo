@@ -1,5 +1,17 @@
 Bingo Card Generator
 ====================
+TL;DR
+--------------------
+
+You have two options.
+
+1. Use the script (see instructions below for how to do that)
+2. Shrug at the script and load up gh-bingo.html in your browser right from the cloned repo.
+   It will display a form where you can enter terms and title and such yourself, or choose
+   from one of our handy presets as a starting point. Once you have the values set the way
+   you like, click the 'generate' button and the new card is yours!
+
+
 How to use this script:
 ----------------------
 
