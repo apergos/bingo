@@ -50,6 +50,8 @@
 
       function init() {
 	  card = {
+	      termsForm: document.getElementById('termsform'),
+	      termsTable: document.getElementById('termstable'),
 	      terms: document.getElementById('terms'),
 	      heading: document.getElementById("heading"),
 	      color: document.getElementById("color"),
@@ -100,29 +102,15 @@
       }
 
       function showTermsForm() {
-	  var termsForms = document.getElementsByClassName("termsform");
-	  for (i=0; i<termsForms.length; i++) {
-	      if (termsForms[i].nodeName == 'DIV') {
-		  termsForms[i].style.display = "block";
-	      } else if (termsForms[i].nodeName == 'TEXTAREA') {
-		  termsForms[i].style.display = "block";
-	      } else if (termsForms[i].nodeName == 'TABLE') {
-		  termsForms[i].style.display = "block";
-	      }
-	  }
+	  card['termsTable'].style.display = 'block';
+	  card['termsForm'].style.display = 'block';
+	  card['terms'].style.display = 'block';
       }
 
       function hideTermsForm() {
-	  var termsForms = document.getElementsByClassName("termsform");
-	  for (i=0; i<termsForms.length; i++) {
-	      if (termsForms[i].nodeName == 'DIV') {
-		  termsForms[i].style.display = "none";
-	      } else if (termsForms[i].nodeName == 'TEXTAREA') {
-		  termsForms[i].style.display = "none";
-	      } else if (termsForms[i].nodeName == 'TABLE') {
-		  termsForms[i].style.display = "none";
-	      }
-	  }
+	  card['termsTable'].style.display = 'none';
+	  card['termsForm'].style.display = 'none';
+	  card['terms'].style.display = 'none';
       }
 
       function getTermsFromForm() {
@@ -393,7 +381,7 @@
       <center>Enter at least 24 terms or short phrases, one per line, in the form below.</center>
       <textarea class="termsform" rows="30" cols="45" id="terms"></textarea>
       <center>
-	<table class="termsform">
+	<table class="termsform" id="termstable">
 	  <tr class="termsform">
 	    <td>Bingo card title:</td>
 	    <td><input type="text" name="heading" value="Bingo Card" maxlen="80" id="heading" /></td>
