@@ -13,8 +13,6 @@
       table.bingo { margin: 20px auto; border-spacing: 2px; }
       tr.bingo { height: 100px; }
       td.unmarked, td.marked { text-align: center; border: thin black solid; padding: 10px; width: 100px; }
-      td.unmarked { background-color: rgba(255, 255, 255, 0.4); }
-      /* td.marked { background-color: rgba(255,204,153,0.4); } */
       tr.termsform { text-align: left; }
       textarea {
 	  display: block;
@@ -63,7 +61,7 @@
 	  var heading = document.getElementById("heading")
 	  heading.value = "Bingo Card"
 	  var color = document.getElementById("color")
-	  color.value = "rgba(255,204,153,0.4)"
+	  color.value = "#ffcc99"
 	  var bgimage = document.getElementById("bgimage")
 	  bgimage.value = "wtf_bg.jpg"
 	  var freespace = document.getElementById("freespace")
@@ -152,7 +150,11 @@
 	      document.title.value = heading.value
 	      var bingoH1 = document.getElementById("bingoheader")
 	      bingoH1.innerHTML = heading.value
-	      markedCellColor = document.getElementById("color").value
+	      markedCellColor = document.getElementById("color").value + "66"
+	      if (markedCellColor == "#00000066") {
+		  // we got a garbage color for whatever reason
+		  markedCellColor = "#ffcc9966";
+	      }
 	      var bgimage = document.getElementById("bgimage")
 	      document.body.style.backgroundImage = "url('" + bgimage.value + "')";
 	      bingoFreeSpace = document.getElementById("freespace").value
@@ -223,7 +225,7 @@
 	      if (i < 12) {
 		  htmlCells[i].innerHTML = terms[randomOrder[i]];
 		  htmlCells[i].className = 'unmarked bingo';
-		  htmlCells[i].style.backgroundColor = "rgba(255, 255, 255, 0.4)";
+		  htmlCells[i].style.backgroundColor = "#ffffff66";
 	      } else if (i == 12) {
 		  htmlCells[i].innerHTML = bingoFreeSpace;
 		  htmlCells[i].className = 'marked bingo';
@@ -231,7 +233,7 @@
 	      } else if (i > 12) {
 		  htmlCells[i].innerHTML = terms[randomOrder[i-1]];
 		  htmlCells[i].className = 'unmarked bingo';
-		  htmlCells[i].style.backgroundColor = "rgba(255, 255, 255, 0.4)";
+		  htmlCells[i].style.backgroundColor = "#ffffff66";
 	      }
 	  }
       }
@@ -249,7 +251,7 @@
 	      htmlCells[i].style.backgroundColor = markedCellColor;
 	  } else {
 	      htmlCells[i].className = 'unmarked bingo';
-	      htmlCells[i].style.backgroundColor = "rgba(255, 255, 255, 0.4)";
+	      htmlCells[i].style.backgroundColor = "#ffffff66";
 	  }
       }
 
@@ -347,7 +349,7 @@
 	      htmlCells[filteredMarkedOrder[i]].className = temp;
 	      // and lastly mark the cells the right colors
 	      htmlCells[chosenIndex].style.backgroundColor = markedCellColor;
-	      htmlCells[filteredMarkedOrder[i]].style.backgroundColor = "rgba(255, 255, 255, 0.4)";
+	      htmlCells[filteredMarkedOrder[i]].style.backgroundColor = "#ffffff66";
 	  }
       }
     </script>
@@ -410,7 +412,7 @@
 	  </tr>
 	  <tr class="termsform">
 	    <td>Color of checked bingo square:</td>
-	    <td> <input type="text" name="checkedcolor" value="rgba(255,204,153,0.4)" maxlen="25" id="color"/></td>
+	    <td> <input type="color" name="checkedcolor" value="#ffcc99" id="color"/></td>
 	  </tr>
 	  <tr class="termsform">
 	    <td>Background image for card (<a href="gallery.html">see gallery</a>):</td>
