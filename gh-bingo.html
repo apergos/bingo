@@ -37,7 +37,24 @@
     <script>
       var terms = [];
       var bingoFreeSpace = "FREE SPACE";
-      var markedCellColor = "rgba(255,204,153,0.4)";
+      var markedCellColor = "#ffcc9966";
+      var card = {}
+
+      function init() {
+	  card = {
+	      terms: document.getElementById('terms'),
+	      heading: document.getElementById("heading"),
+	      color: document.getElementById("color"),
+	      bgimage: document.getElementById("bgimage"),
+	      freespace: document.getElementById("freespace"),
+	      cardPage: document.getElementById("cardpage"),
+	      bingoCard: document.getElementById("bingocard"),
+	      bingoH1: document.getElementById("bingoheader"),
+	      bingoTable: document.getElementById('bingotable'),
+	      htmlCells: document.getElementById('bingotable').getElementsByTagName('td')
+	  }
+	  setupPage();
+      }
 
       function shuffle(array) {
 	  // stolen from stackoverflow, see
@@ -58,44 +75,20 @@
       }
 
       function setDefaults() {
-	  var heading = document.getElementById("heading")
-	  heading.value = "Bingo Card"
-	  var color = document.getElementById("color")
-	  color.value = "#ffcc99"
-	  var bgimage = document.getElementById("bgimage")
-	  bgimage.value = "wtf_bg.jpg"
-	  var freespace = document.getElementById("freespace")
-	  freespace.value = "FREE SPACE"
+	  card['heading'].value = "Bingo Card";
+	  card['color'].value = "#ffcc99";
+	  card['bgimage'].value = "wtf_bg.jpg";
+	  card['freespace'].value = "FREE SPACE";
       }
 
       function hideBingoCard() {
-	  var termsForms = document.getElementsByClassName("cardpage");
-	  for (i=0; i<termsForms.length; i++) {
-	      if (termsForms[i].nodeName == 'DIV') {
-		  termsForms[i].style.display = "none";
-	      }
-	  }
-	  var termsForms = document.getElementsByClassName("bingocard");
-	  for (i=0; i<termsForms.length; i++) {
-	      if (termsForms[i].nodeName == 'DIV') {
-		  termsForms[i].style.display = "none";
-	      }
-	  }
+	  card['cardPage'].style.display = "none";
+	  card['bingoCard'].style.display = "none";
       }
 
       function showBingoCard() {
-	  var termsForms = document.getElementsByClassName("cardpage");
-	  for (i=0; i<termsForms.length; i++) {
-	      if (termsForms[i].nodeName == 'DIV') {
-		  termsForms[i].style.display = "block";
-	      }
-	  }
-	  var termsForms = document.getElementsByClassName("bingocard");
-	  for (i=0; i<termsForms.length; i++) {
-	      if (termsForms[i].nodeName == 'DIV') {
-		  termsForms[i].style.display = "block";
-	      }
-	  }
+	  card['cardPage'].style.display = "block";
+	  card['bingoCard'].style.display = "block";
       }
 
       function showTermsForm() {
@@ -131,33 +124,25 @@
 	  // its current content
 	  // if there are enough terms, show the bingo card with those terms
 
-	  var forms = document.getElementsByClassName("termsform");
-	  for (i=0; i<forms.length; i++) {
-	      if (forms[i].nodeName == 'TEXTAREA') {
-		  formText = forms[i].value;
-		  formParamsUnfiltered = formText.split(/\r?\n/);
-                  // get rid of any empty ones, people love to leave blank lines
-		  formParams = formParamsUnfiltered.filter(Boolean);
-		  break;
-	      }
-	  }
+	  formText = card['terms'].value;
+	  formParamsUnfiltered = formText.split(/\r?\n/);
+          // get rid of any empty ones, people love to leave blank lines
+	  formParams = formParamsUnfiltered.filter(Boolean);
+
 	  if (formParams.length < 24) {
 	      alert("Not enough items, 24 minimum needed");
 	  } else {
 	      terms = formParams;
 	      hideTermsForm();
-	      var heading = document.getElementById("heading")
-	      document.title.value = heading.value
-	      var bingoH1 = document.getElementById("bingoheader")
-	      bingoH1.innerHTML = heading.value
-	      markedCellColor = document.getElementById("color").value + "66"
+	      document.title.value = card['heading'].value
+	      card['bingoH1'].innerHTML = card['heading'].value
+	      markedCellColor = card['color'].value + "66"
 	      if (markedCellColor == "#00000066") {
 		  // we got a garbage color for whatever reason
 		  markedCellColor = "#ffcc9966";
 	      }
-	      var bgimage = document.getElementById("bgimage")
-	      document.body.style.backgroundImage = "url('" + bgimage.value + "')";
-	      bingoFreeSpace = document.getElementById("freespace").value
+	      document.body.style.backgroundImage = "url('" + card['bgimage'].value + "')";
+	      bingoFreeSpace = card["freespace"].value
 	      setupCard();
 	      showBingoCard();
 	  }
@@ -220,20 +205,19 @@
 
 	  // fill in the text in the table cells
 	  var bingoTable = document.getElementById('bingotable')
-	  var htmlCells = bingoTable.getElementsByTagName('td')
-	  for (i = 0; i < htmlCells.length; i++) {
+	  for (i = 0; i < card['htmlCells'].length; i++) {
 	      if (i < 12) {
-		  htmlCells[i].innerHTML = terms[randomOrder[i]];
-		  htmlCells[i].className = 'unmarked bingo';
-		  htmlCells[i].style.backgroundColor = "#ffffff66";
+		  card['htmlCells'][i].innerHTML = terms[randomOrder[i]];
+		  card['htmlCells'][i].className = 'unmarked bingo';
+		  card['htmlCells'][i].style.backgroundColor = "#ffffff66";
 	      } else if (i == 12) {
-		  htmlCells[i].innerHTML = bingoFreeSpace;
-		  htmlCells[i].className = 'marked bingo';
-		  htmlCells[i].style.backgroundColor = markedCellColor;
+		  card['htmlCells'][i].innerHTML = bingoFreeSpace;
+		  card['htmlCells'][i].className = 'marked bingo';
+		  card['htmlCells'][i].style.backgroundColor = markedCellColor;
 	      } else if (i > 12) {
-		  htmlCells[i].innerHTML = terms[randomOrder[i-1]];
-		  htmlCells[i].className = 'unmarked bingo';
-		  htmlCells[i].style.backgroundColor = "#ffffff66";
+		  card['htmlCells'][i].innerHTML = terms[randomOrder[i-1]];
+		  card['htmlCells'][i].className = 'unmarked bingo';
+		  card['htmlCells'][i].style.backgroundColor = "#ffffff66";
 	      }
 	  }
       }
@@ -241,17 +225,15 @@
       function changeCellColor(i) {
 	  // center square must always be marked, it's the free space
 	  if (i == 12) {
-	      htmlCells[i].style.backgroundColor = markedCellColor;
+	      card['htmlCells'][i].style.backgroundColor = markedCellColor;
 	      return;
 	  }
-	  var bingoTable = document.getElementById('bingotable')
-	  var htmlCells = bingoTable.getElementsByTagName('td')
-	  if (htmlCells[i].className == 'unmarked bingo') {
-	      htmlCells[i].className = 'marked bingo';
-	      htmlCells[i].style.backgroundColor = markedCellColor;
+	  if (card['htmlCells'][i].className == 'unmarked bingo') {
+	      card['htmlCells'][i].className = 'marked bingo';
+	      card['htmlCells'][i].style.backgroundColor = markedCellColor;
 	  } else {
-	      htmlCells[i].className = 'unmarked bingo';
-	      htmlCells[i].style.backgroundColor = "#ffffff66";
+	      card['htmlCells'][i].className = 'unmarked bingo';
+	      card['htmlCells'][i].style.backgroundColor = "#ffffff66";
 	  }
       }
 
@@ -300,17 +282,15 @@
       }
 
       function cheat() {
-	  var bingoTable = document.getElementById('bingotable')
-	  var htmlCells = bingoTable.getElementsByTagName('td')
 	  var markedCells = [];
 	  var squareCount = 0;
 
-	  for (i=0; i<htmlCells.length; i++) {
+	  for (i=0; i<card['htmlCells'].length; i++) {
 	      if (i == 12) {
 		  // don't count the free space!
 		  continue;
 	      }
-	      if (htmlCells[i].className == 'marked bingo') {
+	      if (card['htmlCells'][i].className == 'marked bingo') {
 		  markedCells.push(i);
 	      }
 	  }
@@ -334,33 +314,33 @@
 	      // swap the text of the element currently in the row/column we are about
 	      // to make the 'bingo' row/column, with the text of the element already marked
 	      chosenIndex = getIndex(chosen, i);
-	      if (htmlCells[chosenIndex].className == 'marked bingo') {
+	      if (card['htmlCells'][chosenIndex].className == 'marked bingo') {
 		  // don't swap something into a cell if it's already ok
 		  // conveniently this also skips the free space
 		  continue;
 	      }
 
-	      temp = htmlCells[chosenIndex].innerHTML;
-	      htmlCells[chosenIndex].innerHTML = htmlCells[filteredMarkedOrder[i]].innerHTML;
-	      htmlCells[filteredMarkedOrder[i]].innerHTML = temp;
+	      temp = card['htmlCells'][chosenIndex].innerHTML;
+	      card['htmlCells'][chosenIndex].innerHTML = card['htmlCells'][filteredMarkedOrder[i]].innerHTML;
+	      card['htmlCells'][filteredMarkedOrder[i]].innerHTML = temp;
 	      // swap the classes too
-	      temp = htmlCells[chosenIndex].className;
-	      htmlCells[chosenIndex].className = htmlCells[filteredMarkedOrder[i]].className;
-	      htmlCells[filteredMarkedOrder[i]].className = temp;
+	      temp = card['htmlCells'][chosenIndex].className;
+	      card['htmlCells'][chosenIndex].className = card['htmlCells'][filteredMarkedOrder[i]].className;
+	      card['htmlCells'][filteredMarkedOrder[i]].className = temp;
 	      // and lastly mark the cells the right colors
-	      htmlCells[chosenIndex].style.backgroundColor = markedCellColor;
-	      htmlCells[filteredMarkedOrder[i]].style.backgroundColor = "#ffffff66";
+	      card['htmlCells'][chosenIndex].style.backgroundColor = markedCellColor;
+	      card['htmlCells'][filteredMarkedOrder[i]].style.backgroundColor = "#ffffff66";
 	  }
       }
     </script>
   </head>
-  <body onload="setupPage();">
-    <div class="cardpage">
+  <body onload="init();">
+    <div class="cardpage" id="cardpage">
       <center><h1 id="bingoheader">Bingo Card</h1></center>
       <center>
 	<div class="reloader"><button class="reloader" onclick="setupCard();">new card</button>|<button class="cheat" onclick="cheat();">cheat</button>|<button class="newform" onclick="newForm();">new form</button></div>
       </center>
-      <div class="bingocard">
+      <div class="bingocard" id="bingocard">
 	<table class="bingo" id="bingotable">
 	  <tr class="bingo">
 	    <td onclick="changeCellColor(0);"></td>
@@ -403,7 +383,7 @@
     <div class="termsform" id="termsform">
       <center><h1>Bingo Card Terms Entry</h1></center>
       <center>Enter at least 24 terms or short phrases, one per line, in the form below.</center>
-      <textarea class="termsform" rows="30" cols="45"></textarea>
+      <textarea class="termsform" rows="30" cols="45" id="terms"></textarea>
       <center>
 	<table class="termsform">
 	  <tr class="termsform">
