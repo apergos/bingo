@@ -10,6 +10,14 @@
 	     background-image:url(trump_bg.jpg);
 	     background-color: #ffffff;
       }
+      div#termsinputs {
+	  display: grid;
+	  grid-template-columns: auto auto;
+	  justify-content: center;
+	  grid-gap: 10px 20px;
+	  margin-bottom: 20px;
+	  align-items: center;
+      }
       table.bingo { margin: 20px auto; border-spacing: 2px; }
       tr.bingo { height: 100px; }
       td.unmarked, td.marked { text-align: center; border: thin black solid; padding: 10px; width: 100px; }
@@ -18,6 +26,9 @@
 	  display: block;
 	  margin-left: auto;
 	  margin-right: auto;
+	  padding: 5px;
+	  margin-top: 10px;
+	  margin-bottom: 10px;
       }
       div.reloader { width: 650px; text-align: left; cursor: pointer; }
       div.termsform { display:none; }
@@ -87,7 +98,7 @@
       function init() {
 	  card = {
 	      termsForm: document.getElementById('termsform'),
-	      termsTable: document.getElementById('termstable'),
+	      termsInputs: document.getElementById('termsinputs'),
 	      terms: document.getElementById('terms'),
 	      heading: document.getElementById("heading"),
 	      color: document.getElementById("color"),
@@ -138,13 +149,13 @@
       }
 
       function showTermsForm() {
-	  card['termsTable'].style.display = 'block';
+	  card['termsInputs'].style.display = 'grid';
 	  card['termsForm'].style.display = 'block';
 	  card['terms'].style.display = 'block';
       }
 
       function hideTermsForm() {
-	  card['termsTable'].style.display = 'none';
+	  card['termsInputs'].style.display = 'none';
 	  card['termsForm'].style.display = 'none';
 	  card['terms'].style.display = 'none';
       }
@@ -424,34 +435,39 @@
       <center><h1>Bingo Card Terms Entry</h1></center>
       <center>Enter at least 24 terms or short phrases, one per line, in the form below.</center>
       <textarea class="termsform" rows="30" cols="45" id="terms"></textarea>
+      <div class="termsinputs" id="termsinputs">
+	<div>
+	  Bingo card title:
+	</div>
+	<div>
+	  <input type="text" name="heading" value="Bingo Card" maxlen="80" id="heading" />
+	</div>
+	<div>
+	  Color of checked bingo square:
+	</div>
+	<div>
+	  <input type="color" name="checkedcolor" value="#ffcc99" id="color"/>
+	</div>
+	<div>
+	  Background image for card (<a href="gallery.html">gallery</a>):
+	</div>
+	<div>
+	  <select id="bgimage">
+	    <option value="wtf_bg.jpg" selected>WTF</option>
+	    <option value="trump_bg.jpg">Trump</option>
+	    <option value="corpbuzz_bg.jpg">CorpBuzz</option>
+	    <option value="nice_bg.jpg">Flower</option>
+	  </select>
+	</div>
+	<div>
+	  Text for the free space:
+	</div>
+	<div>
+	  <input type="text" name="freespace" value="FREE SPACE" maxlen="50" id="freespace"/>
+	</div>
+      </div>
       <center>
-	<table class="termsform" id="termstable">
-	  <tr class="termsform">
-	    <td>Bingo card title:</td>
-	    <td><input type="text" name="heading" value="Bingo Card" maxlen="80" id="heading" /></td>
-	  </tr>
-	  <tr class="termsform">
-	    <td>Color of checked bingo square:</td>
-	    <td> <input type="color" name="checkedcolor" value="#ffcc99" id="color"/></td>
-	  </tr>
-	  <tr class="termsform">
-	    <td>Background image for card (<a href="gallery.html">see gallery</a>):</td>
-	    <td>
-	      <select id="bgimage">
-		<option value="wtf_bg.jpg" selected>WTF</option>
-		<option value="trump_bg.jpg">Trump</option>
-		<option value="corpbuzz_bg.jpg">CorpBuzz</option>
-		<option value="nice_bg.jpg">Flower</option>
-	      </select>
-	    </td>
-	  </tr>
-	  <tr class="termsform">
-	    <td>Text for the free space:</td>
-	    <td><input type="text" name="freespace" value="FREE SPACE" maxlen="50" id="freespace"/></td>
-	  </tr>
-	</table>
-      </center>
-      <center>
+	<hr style="width: 20%;"/>
 	<div>
 	  <button class="submitter" onclick="getTermsFromForm();">generate</button> |
 	  Presets: <button class="submitter" onclick="setDefaults();">defaults</button> *
