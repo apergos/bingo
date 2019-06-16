@@ -35,10 +35,18 @@
       }
     </style>
     <script>
-      var terms = [];
-      var bingoFreeSpace = "FREE SPACE";
-      var markedCellColor = "#ffcc9966";
       var card = {}
+      var defaults = {
+	  heading: "Bingo Card",
+	  color: "#ffcc99",
+	  bgimage: "wtf_bg.jpg",
+	  freespace: "FREE SPACE"
+      }
+      var terms = [];
+      var bingoFreeSpace = defaults.freespace
+      var defaultAlpha = "66"
+      var markedCellColor = defaults.color + defaultAlpha;
+      var unmarkedCellColor = "#ffffff66";
 
       function init() {
 	  card = {
@@ -75,10 +83,10 @@
       }
 
       function setDefaults() {
-	  card['heading'].value = "Bingo Card";
-	  card['color'].value = "#ffcc99";
-	  card['bgimage'].value = "wtf_bg.jpg";
-	  card['freespace'].value = "FREE SPACE";
+	  card['heading'].value = defaults.heading
+	  card['color'].value = defaults.color
+	  card['bgimage'].value = defaults.bgimage
+	  card['freespace'].value = defaults.freespace
       }
 
       function hideBingoCard() {
@@ -136,10 +144,10 @@
 	      hideTermsForm();
 	      document.title.value = card['heading'].value
 	      card['bingoH1'].innerHTML = card['heading'].value
-	      markedCellColor = card['color'].value + "66"
+	      markedCellColor = card['color'].value + defaultAlpha;
 	      if (markedCellColor == "#00000066") {
 		  // we got a garbage color for whatever reason
-		  markedCellColor = "#ffcc9966";
+		  markedCellColor = defaults.color + defaultAlpha;
 	      }
 	      document.body.style.backgroundImage = "url('" + card['bgimage'].value + "')";
 	      bingoFreeSpace = card["freespace"].value
@@ -209,7 +217,7 @@
 	      if (i < 12) {
 		  card['htmlCells'][i].innerHTML = terms[randomOrder[i]];
 		  card['htmlCells'][i].className = 'unmarked bingo';
-		  card['htmlCells'][i].style.backgroundColor = "#ffffff66";
+		  card['htmlCells'][i].style.backgroundColor = unmarkedCellColor;
 	      } else if (i == 12) {
 		  card['htmlCells'][i].innerHTML = bingoFreeSpace;
 		  card['htmlCells'][i].className = 'marked bingo';
@@ -217,7 +225,7 @@
 	      } else if (i > 12) {
 		  card['htmlCells'][i].innerHTML = terms[randomOrder[i-1]];
 		  card['htmlCells'][i].className = 'unmarked bingo';
-		  card['htmlCells'][i].style.backgroundColor = "#ffffff66";
+		  card['htmlCells'][i].style.backgroundColor = unmarkedCellColor;
 	      }
 	  }
       }
@@ -233,7 +241,7 @@
 	      card['htmlCells'][i].style.backgroundColor = markedCellColor;
 	  } else {
 	      card['htmlCells'][i].className = 'unmarked bingo';
-	      card['htmlCells'][i].style.backgroundColor = "#ffffff66";
+	      card['htmlCells'][i].style.backgroundColor = unmarkedCellColor;
 	  }
       }
 
@@ -329,7 +337,7 @@
 	      card['htmlCells'][filteredMarkedOrder[i]].className = temp;
 	      // and lastly mark the cells the right colors
 	      card['htmlCells'][chosenIndex].style.backgroundColor = markedCellColor;
-	      card['htmlCells'][filteredMarkedOrder[i]].style.backgroundColor = "#ffffff66";
+	      card['htmlCells'][filteredMarkedOrder[i]].style.backgroundColor = unmarkedCellColor;
 	  }
       }
     </script>
