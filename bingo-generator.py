@@ -42,6 +42,8 @@ python3 bingo-generator.py \\
   -t nice_terms.txt -o nice.html -h "A Nice Day" -f "Punch a Nazi" -b nice_bg.jpg
 python3 bingo-generator.py \\
   -t impeach_terms.txt -o impeach_bingo.html -h "Impeachment Bingo" -b trump_bg.jpg -f 'WITCH HUNT!'
+python3 bingo-generator.py \\
+  -t corpbuzz_terms.txt -o corpbuzz_bingo.html -h "Corporate Buzzword Bingo" -b corpbuzz_bg.jpg -f 'IDEATE!' --color '#EBA5D5'
 """
     sys.stderr.write(usage_message)
     sys.exit(1)
