@@ -22,6 +22,4 @@ strategic direction
 ecosystem
 global community
 mission-aligned
-
-
-
+operationalize
