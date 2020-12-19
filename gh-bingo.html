@@ -19,8 +19,8 @@
 	  align-items: center;
       }
       table.bingo { margin: 20px auto; border-spacing: 2px; }
-      tr.bingo { height: 100px; }
-      td.unmarked, td.marked { text-align: center; border: thin black solid; padding: 10px; width: 100px; }
+      tr.bingo { height: 120px; }
+      td.unmarked, td.marked { text-align: center; border: thin black solid; padding: 10px; width: 120px; }
       textarea {
 	  display: block;
 	  margin-left: auto;
@@ -62,6 +62,11 @@
       var corpbuzzTerms = "pivot\naccountabilities\nleveraging\npolarities\ngenerative\nlean into\nparadigm\nasks (noun)\ndisruption\nconvenorship\nstrategist\nresourcing\nconvergence\nconsumption experience\nannualize\nresource (verb)\nemerging markets\nbrand strategy\n____ as a service\nconversion\nstrategic direction\necosystem\nglobal community\nmission-aligned\noperationalize\n";
       var niceTerms = "Ice chocolate\nWalk in a garden\nRead a good story\nMake fun art\nListen to music\nSing a song\nBake bread\nMohito\nPet a kitty\nHug a doggo\nPhoto shoot\nSmoothie\nLaugh with friends\nCheesy poofs\nWrite fun code\nSiesta!\nWatch a good movie\nLearn a new word\nWrite a poem\nGive something away\nStar/moon-gazing\nMake a bad pun\nPlaytime!\nCold shower\n";
       var borderTerms = "National emergency\nVery bad people\nHuman trafficking\nMS-13/Gang members\n4,000 terrorists\nInvasion\nDrugs pouring in\nGreat steel business, workers\nNorth Korea/China, we're doing very well\nI know more about ___ than anyone\nI've done a great job\nIncredible job growth, numbers\n[Migrants] make a left/right turn\nI don't call it a shutdown\nBuilt a lot of the Wall already\nIf you look at Israel, walls work\nMexico is paying for the Wall\nHumanitarian crisis\nIt's destroying our country\nCountries take advantage of us\nGreatest tax cuts ever\nEnemy of the People\nFake News\nSteel barrier instead of concrete\nMigrant caravan\nCatch and release\nWomen with duct tape\nMedieval solution\n";
+      // all of the quotes are easily sourceable via google; the rest are summaries or
+      // rephrases of exact quotes that were too long to fit in a bingo square, also
+      // easy to document from videos, tweets or transcripts of Trump's statements
+      var whiteTerms = "Go back where they came from\n\"Very fine people on both sides\"\n\"They're trying to take away our culture\"\n\"Blame on both sides\"\n\"Sh*thole countries\"\nMexico sends us their rapists\n\"Pocahontas\"\nAll welfare recipients are black\nAll Haitians have AIDS\nMore immigrants \"from places like Norway\"\nMost white murder victims killed by Blacks\n\"I'll use the word 'anchor baby'\"\nJudge has \"absolute conflict\" because of \"Mexican heritage\"\nArabs in New Jersey cheering on 9/11\nCrime up due to Somali refugees\n\"Complete shutdown of Muslims entering the United States\"\nRetweets of accounts such as @whitegenocidetm\n\"I don't know anything about David Duke\"\nCrime in Germany up \"since migrants were accepted\"\n\"These aren't people. These are animals.\"\nEurope \"losing [its] culture\" by allowing immigration\n\"We cannot allow all of these people to invade our Country.\"\n\"I want [Obama] to show his birth certificate.\"\n\"Bring in virtually unlimited numbers of distant relatives\"\n";
+      var pardonTerms = "Ivanka Trump\nRudy Giuliani\nJared Kushner\nEnrique Tarrio\nMichael Pence\nJeffrey Epstein\nKen Paxton\nMichael Pompeo\nDeborah Birx\nPaul Manafort\nWilliam Barr\nDonald Trump, Jr.\nSteven Bannon\nGeorge Nader\nJoe Exotic\nEdward Snowden\nRick Gates\nChris Collins\nAllen Weisselburg\nKyle Rittenhouse\nHope Hicks\nMark & Patricia McCloskey\nGeorge Papadopoulos\nStephen Miller\nEric Trump\nJenna Ellis\nBrad Parscale\n";
 
       var presets = {
 	  impeach: {
@@ -89,6 +94,22 @@
 	      terms: borderTerms,
 	      freespace: "FREE SPACE",
 	      heading: "Presidential Border Bingo",
+	      color: "#ffcc99",
+	      bgimage: "trump_bg.jpg"
+	  },
+	  white: {
+	      terms: whiteTerms,
+	      // this is not a quote or a rephrase but the subtext
+	      // underlying the quotes and summaries
+	      freespace: "White Majority",
+	      heading: "White Supremacy Bingo",
+	      color: "#ffcc99",
+	      bgimage: "trump_bg.jpg"
+	  },
+	  pardon: {
+	      terms: pardonTerms,
+	      freespace: "Pardon Me!",
+	      heading: "Presidential Pardon Bingo",
 	      color: "#ffcc99",
 	      bgimage: "trump_bg.jpg"
 	  },
@@ -172,7 +193,7 @@
 	  formParams = formParamsUnfiltered.filter(Boolean);
 
 	  if (formParams.length < 24) {
-	      alert("Not enough items, 24 minimum needed");
+	      alert("Not enough items, 24 minimum needed, have " + formParams.length);
 	  } else {
 	      terms = formParams;
 	      hideTermsForm();
@@ -474,6 +495,8 @@
 	  <button class="submitter" onclick="usePresets('corpbuzz');">corpbuzz</button> *
 	  <button class="submitter" onclick="usePresets('nice');">nice day</button> *
 	  <button class="submitter" onclick="usePresets('border');">border bingo</button> |
+	  <button class="submitter" onclick="usePresets('white');">whites first</button> |
+	  <button class="submitter" onclick="usePresets('pardon');">pardon</button> |
 	  <a href="https://github.com/apergos/bingo">source code</a>
 	</div>
       </center>
