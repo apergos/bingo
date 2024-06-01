@@ -66,7 +66,10 @@
       // rephrases of exact quotes that were too long to fit in a bingo square, also
       // easy to document from videos, tweets or transcripts of Trump's statements
       var whiteTerms = "Go back where they came from\n\"Very fine people on both sides\"\n\"They're trying to take away our culture\"\n\"Blame on both sides\"\n\"Sh*thole countries\"\nMexico sends us their rapists\n\"Pocahontas\"\nAll welfare recipients are black\nAll Haitians have AIDS\nMore immigrants \"from places like Norway\"\nMost white murder victims killed by Blacks\n\"I'll use the word 'anchor baby'\"\nJudge has \"absolute conflict\" because of \"Mexican heritage\"\nArabs in New Jersey cheering on 9/11\nCrime up due to Somali refugees\n\"Complete shutdown of Muslims entering the United States\"\nRetweets of accounts such as @whitegenocidetm\n\"I don't know anything about David Duke\"\nCrime in Germany up \"since migrants were accepted\"\n\"These aren't people. These are animals.\"\nEurope \"losing [its] culture\" by allowing immigration\n\"We cannot allow all of these people to invade our Country.\"\n\"I want [Obama] to show his birth certificate.\"\n\"Bring in virtually unlimited numbers of distant relatives\"\n";
-      var pardonTerms = "Ivanka Trump\nRudy Giuliani\nJared Kushner\nEnrique Tarrio\nMichael Pence\nJeffrey Epstein\nKen Paxton\nMichael Pompeo\nDeborah Birx\nPaul Manafort\nWilliam Barr\nDonald Trump, Jr.\nSteven Bannon\nGeorge Nader\nJoe Exotic\nEdward Snowden\nRick Gates\nChris Collins\nAllen Weisselburg\nKyle Rittenhouse\nHope Hicks\nMark & Patricia McCloskey\nGeorge Papadopoulos\nStephen Miller\nEric Trump\nJenna Ellis\nBrad Parscale\n";
+      var pardonTerms = "Ivanka Trump\nRudy Giuliani\nJared Kushner\nEnrique Tarrio\nMichael Pence\nJeffrey Epstein\nKen Paxton\nMichael Pompeo\nDeborah Birx\nPaul Manafort\nWilliam Barr\nDonald Trump, Jr.\nSteven Bannon\nGeorge Nader\nJoe Exotic\nEdward Snowden\nRick Gates\nChris Collins\nAllen Weisselburg\nKyle Rittenhouse\nHope Hicks\nMark & Patricia McCloskey\nGeorge Papadopoulos\nStephen Miller\nEric Trump\nJenna Ellis\nBrad Parscale\nRoss Ulbricht\nRosemary Vrablic\nDominic Scalzi\n";
+      var circusTerms = "Dead people voted\nScanned 3 times\nFind 11,780 votes\nMore votes than voters\nObservers forbidden\nMike Pence can do it\nDecertify!\nStop the Steal\nTrump won big\nHugo Chavez\nViolated state law\nIllegally flipped votes\nDestroyed ballots\nCorruption!\nNo signature verification\nWhere is the FBI?\nLots of evidence\nRelease the Kraken\nBig Tech\nThird world countries\nRigged!\nKemp is a disaster\nStuffed ballot boxes\nConstitutional oath\nSaving our country\nIllegitimate electors\n";
+      // All phrases taken from posts by Trump on Truth Social, or statements made to the press, or campaign speeches, May 20 - May 31 2024
+      var enemyTerms = "Enemy of the people\nCorrupt tyranny\nDisgrace\nRigged trial\nSoros-backed\nPersecution\nWitch hunt\nElection interference\nThugs and Monsters\nMentally challenged servant\nThird world country\nKangaroo court\nHuman scum\nDeep State\nCommmunists, Marxists and Fascists\nGlobalists\nTyrants and villians\nRadical Left\nDeranged\nScam\nRigged election\nWeaponization of justice\nFake case\nUnconstitutional\nManchurian candidate\nThreat to democracy\nLow IQ individual\nCognitively impaired\n";
 
       var presets = {
 	  impeach: {
@@ -110,6 +113,20 @@
 	      terms: pardonTerms,
 	      freespace: "Pardon Me!",
 	      heading: "Presidential Pardon Bingo",
+	      color: "#ffcc99",
+	      bgimage: "trump_bg.jpg"
+	  },
+	  circus: {
+	      terms: circusTerms,
+	      freespace: "MASSIVE FRAUD!",
+	      heading: "Congressional Circus Bingo",
+	      color: "#ffcc99",
+	      bgimage: "trump_bg.jpg"
+	  },
+	  enemy: {
+	      terms: enemyTerms,
+	      freespace: "Political prisoner",
+	      heading: "Enemy of the People",
 	      color: "#ffcc99",
 	      bgimage: "trump_bg.jpg"
 	  },
@@ -376,7 +393,7 @@
 
 	  var shuffledMarkedOrder = shuffle(markedCells);
 	  // drop marked cells in the row/col/diag we are going to replace
-	  // since we can't 'swap them in' for unmarked cells in the same line
+	  // since we cannot 'swap them in' for unmarked cells in the same line
 	  filteredMarkedOrder = filter(shuffledMarkedOrder, chosen)
 
 	  var temp = "";
@@ -497,6 +514,8 @@
 	  <button class="submitter" onclick="usePresets('border');">border bingo</button> |
 	  <button class="submitter" onclick="usePresets('white');">whites first</button> |
 	  <button class="submitter" onclick="usePresets('pardon');">pardon</button> |
+	  <button class="submitter" onclick="usePresets('circus');">circus</button> |
+	  <button class="submitter" onclick="usePresets('enemy');">enemy</button> |
 	  <a href="https://github.com/apergos/bingo">source code</a>
 	</div>
       </center>
